@@ -18,7 +18,7 @@ import configparser
 
 class ChatSender:
 
-    INI_FILE = '/usr/local/share/zabbix/alertscripts/google_chat.ini'
+    INI_FILE = '/usr/lib/zabbix/alertscripts/google_chat.ini'
 
     PROBLEM_IMG = 'https://png.pngtree.com/svg/20161208/status_warning_336325.png'
     ACK_IMG = 'https://static1.squarespace.com/static/549db876e4b05ce481ee4649/t/54a47a31e4b0375c08400709/1472574912591/form-3.png'
@@ -84,7 +84,7 @@ class ChatSender:
             bot_message = {
             "cards": [ 
               { "header": 
-                { "title": "Severidade: " + severity,
+                { "title": "Severity: " + severity,
                   "subtitle": stat,
                   "imageUrl": image_url,
                   "imageStyle": "IMAGE"
@@ -92,7 +92,7 @@ class ChatSender:
                 "sections": [
                   { "widgets": [
                     { "keyValue": {
-                        "topLabel": "Alarme",
+                        "topLabel": "Alarm",
                         "content": trigger_name,
                         "contentMultiline": "true"
                       }
@@ -104,12 +104,12 @@ class ChatSender:
                       }
                     },
                     { "keyValue": {
-                        "topLabel": "Data/Hora",
+                        "topLabel": "Date/Hour",
                         "content": date + " - " + time
                       }
                     },
                     { "keyValue": {
-                        "topLabel": "ID do Evento",
+                        "topLabel": "Event ID",
                         "content": self.event_id
                       }
                     }
@@ -117,7 +117,7 @@ class ChatSender:
                   { "widgets": [
                     { "buttons": [
                       { "textButton": 
-                        { "text": "Ver o evento no ZABBIX",
+                        { "text": "View the event on ZABBIX",
                           "onClick": {
                             "openLink": {
                               "url": self.zabbix_url + "/tr_events.php?triggerid=" + self.trigger_id + "&eventid=" + self.event_id
@@ -242,6 +242,4 @@ if __name__ == '__main__':
     event = msg.split('#')
     cs = ChatSender(webhook_name)
     cs.sendMessage(event)
-
-
-
+    
